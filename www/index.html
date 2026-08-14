@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>SimpMusic</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.jpg" />
+  <link rel="apple-touch-icon" href="icon.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- SPLASH -->
+    <div id="splash" class="splash">
+      <div class="splash-logo-wrap">
+        <img src="icon.jpg" class="splash-logo" alt="SimpMusic" />
+      </div>
+      <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="header glass">
+      <div>
+        <div class="brand">SimpMusic</div>
+        <div class="greet" id="greet">Good Afternoon</div>
+      </div>
+      <div class="header-btns">
+        <button type="button" class="icon-btn glass-btn" id="btn-bell" aria-label="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+        <button type="button" class="icon-btn glass-btn" id="btn-theme" aria-label="Theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <button type="button" class="icon-btn glass-btn" id="btn-settings" aria-label="Settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+
+      <!-- HOME -->
+      <section id="home" class="page active">
+        <div class="pills" id="mood-pills">
+          <button type="button" class="pill on" data-q="pop hits">All</button>
+          <button type="button" class="pill" data-q="chill relax">Relax</button>
+          <button type="button" class="pill" data-q="sleep ambient">Sleep</button>
+          <button type="button" class="pill" data-q="energize workout">Energize</button>
+          <button type="button" class="pill" data-q="sad emotional">Sad</button>
+          <button type="button" class="pill" data-q="party hits">Party</button>
+        </div>
+
+        <h2 class="sec-title">Melodías alegres</h2>
+        <div class="hscroll" id="row-happy"></div>
+
+        <p class="sec-label">ÉXITOS DE CADA DÉCADA</p>
+        <h2 class="sec-title">Clásicos inolvidables</h2>
+        <div class="hscroll" id="row-classics"></div>
+
+        <h2 class="sec-title">Hecho para ti</h2>
+        <p class="sec-label" id="rec-label">Basado en lo que escuchas</p>
+        <div class="hscroll" id="rec-row"></div>
+
+        <h2 class="sec-title">Moods</h2>
+        <div class="grid2" id="mood-grid"></div>
+      </section>
+
+      <!-- SEARCH -->
+      <section id="search" class="page">
+        <div class="search-top">
+          <div class="search-bar glass">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="search" id="q" placeholder="Search for song..." autocomplete="off" />
+            <button type="button" id="q-clear" class="q-clear hidden" aria-label="Clear">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <h2 class="search-h">Everything you need</h2>
+          <p class="search-p">Search for songs, artists, albums, playlists, and more</p>
+          <button type="button" class="chart-pill glass" id="btn-chart">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7-6.3-4.6L5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+            Introducing SimpMusic Chart
+          </button>
+        </div>
+        <div id="results" class="results hidden"></div>
+        <div id="browse">
+          <h3 class="sec-title">Moods</h3>
+          <div class="grid2" id="moods-browse"></div>
+          <h3 class="sec-title" style="margin-top:20px">Genres</h3>
+          <div class="grid2" id="genres-browse"></div>
+        </div>
+      </section>
+
+      <!-- LIBRARY -->
+      <section id="library" class="page">
+        <div class="lib-tabs">
+          <button type="button" class="ltab on">Your library</button>
+          <button type="button" class="ltab">SimpMusic Charts</button>
+          <button type="button" class="ltab">Your Local</button>
+        </div>
+        <div class="quick4">
+          <button type="button" class="qcard pink" data-act="fav">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            Favorite
+          </button>
+          <button type="button" class="qcard soft" data-act="fol">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Followed
+          </button>
+          <button type="button" class="qcard soft2" data-act="most">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+            Most Played
+          </button>
+          <button type="button" class="qcard soft3" data-act="dl">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Downloaded
+          </button>
+        </div>
+        <h2 class="sec-title">Recently Added</h2>
+        <div id="recent" class="slist"><p class="empty">Aún no hay canciones</p></div>
+        <div class="sec-row">
+          <h2 class="sec-title">Mis Playlists</h2>
+          <button type="button" class="linkbtn" id="btn-new-pl">+ Nueva</button>
+        </div>
+        <div id="pl-list" class="pllist"></div>
+        <div id="pl-detail" class="pl-detail hidden">
+          <div class="pl-head">
+            <button type="button" class="icon-btn glass-btn" id="btn-pl-back" aria-label="Back">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <div class="pl-head-info">
+              <h2 id="pl-name">—</h2>
+              <p id="pl-count">0 canciones</p>
+            </div>
+            <div class="pl-head-actions">
+              <button type="button" class="linkbtn" id="btn-pl-play">Play</button>
+              <button type="button" class="linkbtn" id="btn-pl-dl">Descargar</button>
+            </div>
+          </div>
+          <p class="hint">Usa las flechas para reordenar</p>
+          <div id="pl-tracks" class="slist"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- MINI PLAYER -->
+    <div id="mini" class="mini glass hidden">
+      <img id="mini-img" src="" alt="" />
+      <div class="mini-txt">
+        <div id="mini-title" class="mini-t">—</div>
+        <div id="mini-artist" class="mini-a">—</div>
+      </div>
+      <button type="button" class="icon-btn" id="mini-like" aria-label="Like">
+        <svg class="heart-o" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <svg class="heart-f hidden" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <button type="button" class="icon-btn mini-play-btn" id="mini-play" aria-label="Play">
+        <svg class="ic-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="ic-pause hidden" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+      </button>
+      <div class="mini-bar"><div id="mini-fill"></div></div>
+    </div>
+
+    <!-- FULL PLAYER -->
+    <div id="full" class="full hidden">
+      <!-- Ambient blur bg from cover -->
+      <div class="full-bg" id="full-bg"></div>
+      <div class="full-scrim"></div>
+
+      <div class="full-top">
+        <button type="button" class="icon-btn glass-btn" id="full-close" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="full-now">NOW PLAYING</div>
+        <button type="button" class="icon-btn glass-btn" id="btn-more" aria-label="More">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
+        </button>
+      </div>
+
+      <!-- COVER: YT player underneath (real size in viewport) + art on top -->
+      <div class="cover-wrap">
+        <div id="yt-cover-slot" class="yt-cover-slot"></div>
+        <img id="full-cover" class="full-cover" src="" alt="" />
+        <div class="cover-shine"></div>
+      </div>
+
+      <div class="full-meta">
+        <div class="full-meta-text">
+          <h2 id="full-title">—</h2>
+          <p id="full-artist">—</p>
+        </div>
+        <button type="button" class="icon-btn glass-btn" id="btn-like" aria-label="Like">
+          <svg class="heart-o" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <svg class="heart-f hidden" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+
+      <div class="full-prog">
+        <div class="fbar" id="fbar"><div id="ffill"></div></div>
+        <div class="ftimes"><span id="tcur">0:00</span><span id="tdur">0:00</span></div>
+      </div>
+
+      <div class="full-ctrls">
+        <button type="button" class="ctrl-btn" id="btn-shuf" aria-label="Shuffle">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+        </button>
+        <button type="button" class="ctrl-btn" id="btn-prev" aria-label="Previous">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6V6zm3.5 6 8.5 6V6l-8.5 6z"/></svg>
+        </button>
+        <button type="button" class="bigplay" id="btn-play" aria-label="Play">
+          <svg class="ic-play" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ic-pause hidden" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+        </button>
+        <button type="button" class="ctrl-btn" id="btn-next" aria-label="Next">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+        <button type="button" class="ctrl-btn" id="btn-rep" aria-label="Repeat">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        </button>
+      </div>
+
+      <div class="full-acts">
+        <button type="button" class="act-btn glass" id="btn-add">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Playlist
+        </button>
+      </div>
+
+      <div class="lyrics-card glass" id="lyrics-card">
+        <div class="lyrics-head">
+          <span>Lyrics</span>
+          <div class="lyrics-head-right">
+            <span class="muted" id="lyrics-src">lrclib</span>
+            <button type="button" class="linkbtn" id="btn-full-lyrics">Full</button>
+          </div>
+        </div>
+        <div id="lyrics-body" class="lyrics-body">
+          <p class="lyrics-hint">Las letras aparecerán aquí al reproducir</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOATING NAV -->
+    <nav class="nav glass">
+      <button type="button" class="navi on" data-page="home">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>Home</span>
+      </button>
+      <button type="button" class="navi" data-page="library">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span>Library</span>
+      </button>
+      <button type="button" class="navi" data-page="search">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <span>Search</span>
+      </button>
+    </nav>
+
+    <!-- PLAYLIST PICKER -->
+    <div id="pl-picker" class="modal hidden">
+      <div class="modal-box glass">
+        <h3>Añadir a playlist</h3>
+        <p class="picker-track" id="picker-track">—</p>
+        <div id="picker-list" class="picker-list"></div>
+        <div class="modal-row">
+          <button type="button" id="picker-cancel">Cancelar</button>
+          <button type="button" id="picker-new" class="ok">+ Nueva</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-box glass">
+        <h3>Nueva Playlist</h3>
+        <input type="text" id="pl-input" placeholder="Nombre..." />
+        <div class="modal-row">
+          <button type="button" id="modal-cancel">Cancelar</button>
+          <button type="button" id="modal-ok" class="ok">Crear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- YouTube player: real size, invisible to user, always in DOM -->
+    <div class="yt-host" aria-hidden="true" title="YouTube player">
+      <div id="yt"></div>
+    </div>
+
+
+    <!-- CHANGELOG v0.2 -->
+    <div id="changelog" class="changelog hidden">
+      <div class="changelog-box glass">
+        <div class="cl-badge">v0.2 alpha</div>
+        <h2>What's new</h2>
+        <ul class="cl-list">
+          <li><strong>Chromo AI</strong> — tu asistente en la app (busca, reproduce, controla)</li>
+          <li><strong>Búsqueda real</strong> — cualquier canción de YouTube</li>
+          <li><strong>Lyrics synced</strong> + modo pantalla completa</li>
+          <li><strong>Player mejorado</strong> — cover, progreso y controles</li>
+          <li><strong>Liquid glass</strong> + animaciones bouncy</li>
+          <li><strong>UI responsive</strong> que se adapta sola</li>
+        </ul>
+        <button type="button" class="cl-ok" id="changelog-ok">OK</button>
+      </div>
+    </div>
+
+    <!-- FULL LYRICS -->
+    <div id="lyrics-full" class="lyrics-full hidden">
+      <div class="lf-top">
+        <button type="button" class="icon-btn glass-btn" id="lf-close" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="lf-title" id="lf-title">Lyrics</div>
+        <div style="width:40px"></div>
+      </div>
+      <div id="lf-body" class="lf-body"></div>
+    </div>
+
+    <!-- CHROMO AI -->
+    <button type="button" id="chromo-fab" class="chromo-fab" aria-label="Chromo AI">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v1h1a3 3 0 0 1 0 6h-1v1a4 4 0 0 1-8 0v-1H7a3 3 0 0 1 0-6h1V6a4 4 0 0 1 4-4z"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="15" cy="10" r="1" fill="currentColor"/></svg>
+    </button>
+    <div id="chromo" class="chromo hidden">
+      <div class="chromo-panel glass">
+        <div class="chromo-head">
+          <div class="chromo-brand">
+            <span class="chromo-dot"></span>
+            <div>
+              <div class="chromo-name">Chromo AI</div>
+              <div class="chromo-sub">Asistente de SimpMusic</div>
+            </div>
+          </div>
+          <button type="button" class="icon-btn glass-btn" id="chromo-close" aria-label="Close">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div id="chromo-msgs" class="chromo-msgs"></div>
+        <div class="chromo-quick">
+          <button type="button" class="cq" data-q="Reproduce algo chill">Chill</button>
+          <button type="button" class="cq" data-q="Busca bad bunny">Bad Bunny</button>
+          <button type="button" class="cq" data-q="Abre mi biblioteca">Biblioteca</button>
+          <button type="button" class="cq" data-q="¿Qué está sonando?">Now playing</button>
+        </div>
+        <form id="chromo-form" class="chromo-form">
+          <input type="text" id="chromo-input" placeholder="Pide algo a Chromo…" autocomplete="off" />
+          <button type="submit" class="chromo-send" aria-label="Send">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="toast" class="toast glass"></div>
+
+    <!-- CONTEXT MENU -->
+    <div id="ctx-menu" class="ctx-menu hidden">
+      <div class="ctx-backdrop" id="ctx-backdrop"></div>
+      <div class="ctx-panel glass">
+        <div class="ctx-handle"></div>
+        <button type="button" class="ctx-item" id="ctx-download">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Descargar canción</span>
+        </button>
+        <button type="button" class="ctx-item" id="ctx-add-pl">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span>Añadir a playlist</span>
+        </button>
+        <button type="button" class="ctx-item" id="ctx-share">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+          <span>Compartir</span>
+        </button>
+        <button type="button" class="ctx-item danger" id="ctx-close">
+          <span>Cerrar</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SETTINGS / AJUSTES -->
+    <div id="settings" class="settings-sheet hidden">
+      <div class="settings-backdrop" id="settings-backdrop"></div>
+      <div class="settings-panel glass">
+        <div class="settings-handle"></div>
+        <div class="settings-head">
+          <h2>Ajustes</h2>
+          <button type="button" class="icon-btn glass-btn" id="settings-close" aria-label="Cerrar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="settings-body">
+          <section class="set-section">
+            <h3 class="set-title">Motor de audio</h3>
+            <p class="set-desc">Elige cómo se obtiene el audio para poder escuchar en segundo plano (notificación / pantalla bloqueada).</p>
+
+            <label class="set-option" data-engine="piped">
+              <input type="radio" name="audio-engine" value="piped" />
+              <div class="set-option-content">
+                <div class="set-option-top">
+                  <span class="set-option-name">Piped directo</span>
+                  <span class="set-badge">Mejor</span>
+                </div>
+                <p class="set-option-desc">
+                  Usa instancias públicas de Piped para sacar el audio real de YouTube.
+                  Más estable y eficiente para background playback. La búsqueda sigue usando la API oficial de YouTube.
+                </p>
+              </div>
+            </label>
+
+            <label class="set-option" data-engine="backend">
+              <input type="radio" name="audio-engine" value="backend" />
+              <div class="set-option-content">
+                <div class="set-option-top">
+                  <span class="set-option-name">Mi Backend</span>
+                  <span class="set-badge">MEJOR</span>
+                </div>
+                <p class="set-option-desc">
+                  Usa tu servidor (<code>backend-1-k2na.onrender.com</code>) como proxy.
+                  Puede ser más lento o menos estable según la carga del servidor y si el proxy soporta bien los streams de audio.
+                </p>
+              </div>
+            </label>
+          </section>
+
+          <section class="set-section">
+            <h3 class="set-title">Descargas</h3>
+            <p class="set-desc">
+              Puedes descargar canciones desde el menú <strong>⋮</strong> del player, o playlists enteras desde la vista de playlist.
+              En la mayoría de teléfonos el archivo se guarda en la carpeta <strong>Descargas</strong>.
+              En algunos navegadores podrás elegir la carpeta al guardar.
+            </p>
+          </section>
+
+          <section class="set-section">
+            <h3 class="set-title">Nota</h3>
+            <p class="set-desc">
+              La búsqueda y el catálogo siempre usan la <strong>API de YouTube</strong>.
+              Este ajuste solo cambia de dónde se saca el <em>audio real</em> para poder reproducir en segundo plano.
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="script.js"></script>
+</body>
+</html>
