@@ -1,0 +1,23 @@
+{
+  "name": "sync-music",
+  "version": "1.0.0",
+  "description": "Sync Music - Android app with background audio",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Web assets are in www/'",
+    "cap:sync": "npx cap sync",
+    "cap:open": "npx cap open android"
+  },
+  "keywords": ["music", "capacitor", "android"],
+  "author": "lunethosdev-eng",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/app": "^6.0.1",
+    "@capacitor/status-bar": "^6.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  }
+}
